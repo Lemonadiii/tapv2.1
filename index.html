@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🎄 Новогодняя Тапалка</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(0, 50, 100, 0.3) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(100, 0, 50, 0.3) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(0, 100, 50, 0.2) 0%, transparent 30%),
+                linear-gradient(135deg, #0a1a2a 0%, #07182e 30%, #0c1120 70%, #050a14 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 15px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Анимированные снежинки */
+        .snowflake {
+            position: fixed;
+            background: white;
+            border-radius: 50%;
+            filter: blur(1px);
+            opacity: 0.8;
+            z-index: 1;
+            animation-name: fall;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            text-align: center;
+            padding: 25px 20px;
+            width: 100%;
+            max-width: 500px;
+            background: rgba(10, 25, 40, 0.85);
+            backdrop-filter: blur(25px);
+            border-radius: 25px;
+            box-shadow: 
+                0 0 100px rgba(0, 200, 255, 0.15),
+                0 15px 35px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                inset 0 0 50px rgba(0, 100, 200, 0.2);
+            border: 2px solid rgba(100, 200, 255, 0.3);
+            position: relative;
+            z-index: 3;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .header {
+            margin-bottom: 25px;
+            position: relative;
+            padding: 0 10px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(45deg, 
+                #ff3366 0%, #ff6633 25%, 
+                #ffcc00 50%, #33ff66 75%, 
+                #3366ff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            position: relative;
+            display: inline-block;
+            background-size: 200% auto;
+            animation: titleShine 3s infinite linear;
+            line-height: 1.2;
+        }
+
+        @keyframes titleShine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        h1::before {
+            content: '🎄';
+            position: absolute;
+            left: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.8rem;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.5));
+            animation: iconFloat 3s infinite ease-in-out;
+        }
+
+        h1::after {
+            content: '🎅';
+            position: absolute;
+            right: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.8rem;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
+            animation: iconFloat 3s infinite ease-in-out reverse;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(-50%) rotate(-5deg); }
+            50% { transform: translateY(-50%) rotate(5deg); }
+        }
+
+        .subtitle {
+            color: #a5e6ff;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            text-shadow: 0 0 10px rgba(0, 200, 255, 0.5);
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+            padding: 0 5px;
+        }
+
+        .stats-container {
+            background: rgba(20, 40, 60, 0.7);
+            border-radius: 20px;
+            padding: 20px 15px;
+            margin-bottom: 20px;
+            box-shadow: 
+                inset 0 0 30px rgba(0, 100, 200, 0.3),
+                0 10px 25px rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(100, 200, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.5) 50%, 
+                transparent 100%);
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .score-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .score-box {
+            background: linear-gradient(145deg, rgba(0, 80, 160, 0.8), rgba(0, 40, 100, 0.8));
+            padding: 20px 15px;
+            border-radius: 20px;
+            box-shadow: 
+                0 8px 20px rgba(0, 100, 255, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                0 0 20px rgba(100, 200, 255, 0.2);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(100, 200, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .score-label {
+            font-size: 0.95rem;
+            color: #ccffff;
+            margin-bottom: 10px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            letter-spacing: 0.5px;
+        }
+
+        .score-value {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #ffff99;
+            text-shadow: 
+                0 0 15px rgba(255, 255, 100, 0.7),
+                0 3px 8px rgba(0, 0, 0, 0.5);
+            font-family: 'Courier New', monospace;
+        }
+
+        .tap-button-container {
+            position: relative;
+            margin: 25px 0;
+            padding: 0 10px;
+        }
+
+        .tap-button {
+            width: 200px;
+            height: 200px;
+            max-width: 80vw;
+            max-height: 80vw;
+            background: radial-gradient(circle at 35% 35%, 
+                #ff0000 0%, #ff3366 20%, #ff0066 60%, #cc0000 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            cursor: pointer;
+            touch-action: manipulation;
+            box-shadow: 
+                0 0 80px rgba(255, 0, 100, 0.8),
+                inset 0 15px 30px rgba(255, 255, 255, 0.4),
+                0 0 0 10px rgba(255, 215, 0, 0.4),
+                0 0 0 20px rgba(255, 0, 100, 0.2);
+            transition: all 0.15s ease;
+            position: relative;
+            overflow: hidden;
+            border: 8px solid rgba(255, 215, 0, 0.6);
+            animation: buttonPulse 2.5s infinite ease-in-out;
+        }
+
+        @keyframes buttonPulse {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 80px rgba(255, 0, 100, 0.8),
+                    inset 0 15px 30px rgba(255, 255, 255, 0.4),
+                    0 0 0 10px rgba(255, 215, 0, 0.4),
+                    0 0 0 20px rgba(255, 0, 100, 0.2);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 100px rgba(255, 0, 100, 1),
+                    inset 0 15px 30px rgba(255, 255, 255, 0.5),
+                    0 0 0 10px rgba(255, 215, 0, 0.6),
+                    0 0 0 20px rgba(255, 0, 100, 0.3);
+                transform: scale(1.02);
+            }
+        }
+
+        .tap-button::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: conic-gradient(
+                #ff0000, #ff9900, #ffff00, #00ff00,
+                #00ffff, #0000ff, #9900ff, #ff00ff, #ff0000
+            );
+            border-radius: 50%;
+            filter: blur(15px);
+            opacity: 0.3;
+            z-index: -1;
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .tap-button:active {
+            transform: scale(0.88);
+            box-shadow: 
+                0 0 60px rgba(255, 0, 100, 1),
+                inset 0 8px 20px rgba(255, 255, 255, 0.5),
+                0 0 0 8px rgba(255, 215, 0, 0.6);
+            animation: none;
+        }
+
+        .tap-icon {
+            font-size: 4rem;
+            color: #ffff66;
+            text-shadow: 
+                0 0 20px rgba(255, 255, 100, 0.9),
+                0 3px 10px rgba(0, 0, 0, 0.7);
+            z-index: 2;
+            animation: iconGlow 1.5s infinite alternate;
+        }
+
+        @keyframes iconGlow {
+            0% { 
+                text-shadow: 
+                    0 0 20px rgba(255, 255, 100, 0.9),
+                    0 3px 10px rgba(0, 0, 0, 0.7);
+                transform: scale(1);
+            }
+            100% { 
+                text-shadow: 
+                    0 0 35px rgba(255, 255, 100, 1),
+                    0 5px 15px rgba(0, 0, 0, 0.8);
+                transform: scale(1.05);
+            }
+        }
+
+        .tap-label {
+            color: #99ffcc;
+            font-size: 1.1rem;
+            margin-top: 15px;
+            font-weight: 600;
+            text-shadow: 0 0 15px rgba(0, 255, 153, 0.5);
+            line-height: 1.4;
+            padding: 0 10px;
+        }
+
+        .upgrade-container {
+            background: linear-gradient(135deg, 
+                rgba(0, 100, 200, 0.6), 
+                rgba(0, 50, 150, 0.6));
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 20px;
+            border: 2px solid rgba(100, 200, 255, 0.6);
+            box-shadow: 
+                inset 0 0 30px rgba(0, 100, 200, 0.4),
+                0 8px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upgrade-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+            background: rgba(0, 40, 80, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid rgba(0, 200, 255, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .upgrade-text {
+            text-align: center;
+        }
+
+        .upgrade-title {
+            font-size: 1.2rem;
+            color: #ffff99;
+            margin-bottom: 8px;
+            text-shadow: 0 0 12px rgba(255, 255, 0, 0.5);
+            line-height: 1.3;
+        }
+
+        .upgrade-desc {
+            font-size: 0.95rem;
+            color: #ccffff;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .upgrade-cost {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #ffcc00;
+            text-shadow: 
+                0 0 15px rgba(255, 204, 0, 0.7),
+                0 2px 6px rgba(0, 0, 0, 0.5);
+            font-family: 'Courier New', monospace;
+        }
+
+        .buy-button {
+            background: linear-gradient(145deg, 
+                #ff3366 0%, #ff0066 100%);
+            border: none;
+            color: white;
+            width: 100%;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 
+                0 8px 20px rgba(255, 0, 100, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            border: 3px solid rgba(255, 215, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+
+        .buy-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 
+                0 12px 25px rgba(255, 0, 100, 0.7),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                0 0 20px rgba(255, 0, 100, 0.4);
+        }
+
+        .buy-button:active {
+            transform: translateY(-1px);
+        }
+
+        .buy-button:disabled {
+            background: linear-gradient(145deg, #666, #444);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            opacity: 0.6;
+            border-color: rgba(153, 153, 153, 0.5);
+        }
+
+        .stats-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: rgba(0, 40, 80, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border: 2px solid rgba(100, 200, 255, 0.4);
+            box-shadow: inset 0 0 20px rgba(0, 100, 150, 0.3);
+        }
+
+        .stat-item {
+            text-align: center;
+            position: relative;
+            padding: 15px;
+            background: rgba(0, 60, 120, 0.4);
+            border-radius: 12px;
+            border: 1px solid rgba(100, 200, 255, 0.3);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #66ffff;
+            text-shadow: 0 0 12px rgba(0, 255, 255, 0.7);
+            font-family: 'Courier New', monospace;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #ccffff;
+            opacity: 0.9;
+            letter-spacing: 0.5px;
+        }
+
+        .footer {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(100, 200, 255, 0.3);
+            position: relative;
+        }
+
+        .footer-text {
+            font-size: 1.1rem;
+            color: #ffccff;
+            margin-bottom: 8px;
+            text-shadow: 0 0 12px rgba(255, 100, 255, 0.5);
+            letter-spacing: 1px;
+            line-height: 1.3;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: #99ffff;
+            opacity: 0.8;
+            line-height: 1.4;
+        }
+
+        /* Эффекты при клике */
+        .click-effect {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle, 
+                rgba(255, 255, 255, 0.8) 0%, 
+                rgba(255, 255, 255, 0) 70%);
+            pointer-events: none;
+            transform: scale(0);
+            animation: clickExpand 0.5s ease-out;
+            z-index: 10;
+        }
+
+        @keyframes clickExpand {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2.5);
+                opacity: 0;
+            }
+        }
+
+        /* Медиа запросы для телефонов */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+                align-items: flex-start;
+            }
+            
+            .container {
+                padding: 20px 15px;
+                border-radius: 20px;
+                margin: 0 auto;
+                max-width: 95%;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 8px;
+            }
+            
+            h1::before, h1::after {
+                font-size: 1.5rem;
+                position: static;
+                display: inline-block;
+                margin: 0 5px;
+                transform: none;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+                padding: 0;
+                margin-bottom: 5px;
+            }
+            
+            .stats-container {
+                padding: 15px 12px;
+                margin-bottom: 15px;
+            }
+            
+            .score-container {
+                gap: 12px;
+                margin-bottom: 20px;
+            }
+            
+            .score-box {
+                padding: 15px 12px;
+                border-radius: 15px;
+            }
+            
+            .score-value {
+                font-size: 1.8rem;
+            }
+            
+            .tap-button-container {
+                margin: 20px 0;
+            }
+            
+            .tap-button {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .tap-icon {
+                font-size: 3.5rem;
+            }
+            
+            .tap-label {
+                font-size: 1rem;
+                margin-top: 12px;
+            }
+            
+            .upgrade-container {
+                padding: 15px;
+                margin-top: 15px;
+                border-radius: 15px;
+            }
+            
+            .upgrade-info {
+                padding: 15px;
+                gap: 12px;
+                margin-bottom: 15px;
+                border-radius: 12px;
+            }
+            
+            .upgrade-title {
+                font-size: 1.1rem;
+                margin-bottom: 6px;
+            }
+            
+            .upgrade-desc {
+                font-size: 0.9rem;
+            }
+            
+            .upgrade-cost {
+                font-size: 1.6rem;
+            }
+            
+            .buy-button {
+                padding: 18px;
+                font-size: 1.1rem;
+                border-radius: 12px;
+            }
+            
+            .stats-bar {
+                padding: 15px;
+                gap: 12px;
+                margin-top: 15px;
+                border-radius: 12px;
+            }
+            
+            .stat-item {
+                padding: 12px;
+                border-radius: 10px;
+            }
+            
+            .stat-value {
+                font-size: 1.3rem;
+            }
+            
+            .stat-label {
+                font-size: 0.85rem;
+            }
+            
+            .footer {
+                margin-top: 20px;
+                padding-top: 15px;
+            }
+            
+            .footer-text {
+                font-size: 1rem;
+                margin-bottom: 6px;
+            }
+            
+            .copyright {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h1::before {
+                left: -30px;
+            }
+            
+            h1::after {
+                right: -30px;
+            }
+            
+            .score-container {
+                flex-direction: row;
+                gap: 20px;
+            }
+            
+            .stats-bar {
+                flex-direction: row;
+                gap: 20px;
+            }
+            
+            .tap-button {
+                width: 220px;
+                height: 220px;
+            }
+            
+            .tap-icon {
+                font-size: 4.5rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            body {
+                align-items: center;
+            }
+            
+            .score-container {
+                flex-direction: row;
+                gap: 25px;
+            }
+            
+            .stats-bar {
+                flex-direction: row;
+                gap: 25px;
+            }
+            
+            .upgrade-info {
+                flex-direction: row;
+                text-align: left;
+                align-items: center;
+            }
+        }
+
+        /* Улучшенные touch-события */
+        .touch-button {
+            touch-action: manipulation;
+        }
+
+        /* Предотвращение выделения текста на тап */
+        .no-select {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body class="no-select">
+    <div class="container">
+        <div class="header">
+            <h1><span class="mobile-only">🎄</span>Новогодняя Тапалка<span class="mobile-only">🎅</span></h1>
+            <p class="subtitle">Собери как можно больше новогодних подарков!</p>
+            <p class="subtitle">Улучшай свою силу для большего дохода</p>
+        </div>
+        
+        <div class="stats-container">
+            <div class="score-container">
+                <div class="score-box">
+                    <div class="score-label">🎁 ПОДАРКИ</div>
+                    <div class="score-value" id="coins">0</div>
+                </div>
+                
+                <div class="score-box">
+                    <div class="score-label">🏆 РЕКОРД</div>
+                    <div class="score-value" id="highScore">0</div>
+                </div>
+            </div>
+            
+            <div class="tap-button-container">
+                <div class="tap-button" id="tapButton">
+                    <div class="tap-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                </div>
+                <div class="tap-label">НАЖМИ НА ШАР!</div>
+                <div class="tap-label" id="coinsPerClick">+1 подарок за клик</div>
+            </div>
+            
+            <div class="upgrade-container">
+                <div class="upgrade-info">
+                    <div class="upgrade-text">
+                        <div class="upgrade-title">✨ УЛУЧШЕНИЕ</div>
+                        <div class="upgrade-desc">+1 к силе удара</div>
+                    </div>
+                    <div class="upgrade-cost" id="upgradeCost">60</div>
+                </div>
+                
+                <button class="buy-button" id="buyButton">
+                    <i class="fas fa-shopping-bag"></i> КУПИТЬ
+                </button>
+            </div>
+            
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="stat-value" id="power">1</div>
+                    <div class="stat-label">СИЛА</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="clicksPerSecond">0</div>
+                    <div class="stat-label">КЛИКОВ/СЕК</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalClicks">0</div>
+                    <div class="stat-label">ВСЕГО</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-text">LEMONADIII ✨ ARMAN_BER</div>
+            <div class="copyright">Новогоднее волшебство</div>
+        </div>
+    </div>
+
+    <script>
+        // Игровые переменные
+        let coins = 0;
+        let power = 1;
+        let upgradeCost = 60;
+        let highScore = localStorage.getItem('newyearCleanHighScore') || 0;
+        let totalClicks = 0;
+        let clicksInLastSecond = 0;
+        let clicksPerSecond = 0;
+        
+        // Анти-чит система
+        let lastClickTime = 0;
+        let clickCooldown = 150;
+        let maxCPS = 12;
+        let recentClicks = [];
+        let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        // Элементы DOM
+        const coinsElement = document.getElementById('coins');
+        const powerElement = document.getElementById('power');
+        const highScoreElement = document.getElementById('highScore');
+        const upgradeCostElement = document.getElementById('upgradeCost');
+        const coinsPerClickElement = document.getElementById('coinsPerClick');
+        const totalClicksElement = document.getElementById('totalClicks');
+        const clicksPerSecondElement = document.getElementById('clicksPerSecond');
+        const tapButton = document.getElementById('tapButton');
+        const buyButton = document.getElementById('buyButton');
+        
+        // Инициализация игры
+        function init() {
+            if (!isMobile) {
+                createSnowflakes();
+            }
+            
+            loadGameState();
+            updateUI();
+            startGameLoop();
+            setupAntiCheat();
+            
+            highScoreElement.textContent = formatNumber(highScore);
+            updateBuyButton();
+            
+            // Восстановление из localStorage
+            const savedState = JSON.parse(localStorage.getItem('newyearCleanGame') || '{}');
+            if (savedState.coins) coins = savedState.coins;
+            if (savedState.power) power = savedState.power;
+            if (savedState.upgradeCost) upgradeCost = savedState.upgradeCost;
+            if (savedState.totalClicks) totalClicks = savedState.totalClicks;
+            
+            updateUI();
+            
+            // Сохранение каждые 30 секунд
+            setInterval(saveGameState, 30000);
+            
+            // Оптимизация для мобильных
+            if (isMobile) {
+                optimizeForMobile();
+            }
+        }
+        
+        // Оптимизация для мобильных устройств
+        function optimizeForMobile() {
+            // Уменьшаем анимации для экономии батареи
+            const styles = document.createElement('style');
+            styles.textContent = `
+                .tap-button { animation-duration: 3s; }
+                * { animation-play-state: running !important; }
+            `;
+            document.head.appendChild(styles);
+            
+            // Улучшаем touch события
+            document.addEventListener('touchstart', function(e) {
+                if (e.target === tapButton || e.target.closest('#tapButton')) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+        }
+        
+        // Создание снежинок (только для десктопа)
+        function createSnowflakes() {
+            if (isMobile) return;
+            
+            const snowflakeCount = 40;
+            
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                
+                const size = Math.random() * 4 + 2;
+                const startX = Math.random() * 100;
+                const duration = Math.random() * 10 + 10;
+                const delay = Math.random() * 20;
+                
+                snowflake.style.width = `${size}px`;
+                snowflake.style.height = `${size}px`;
+                snowflake.style.left = `${startX}vw`;
+                snowflake.style.opacity = Math.random() * 0.6 + 0.3;
+                snowflake.style.animationDuration = `${duration}s`;
+                snowflake.style.animationDelay = `${delay}s`;
+                
+                document.body.appendChild(snowflake);
+            }
+        }
+        
+        // Настройка анти-чит системы
+        function setupAntiCheat() {
+            setInterval(() => {
+                const now = Date.now();
+                recentClicks = recentClicks.filter(time => now - time < 1000);
+            }, 1000);
+        }
+        
+        // Обработка кликов
+        function handleTap(event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            
+            const currentTime = Date.now();
+            
+            // Проверка на слишком быстрые клики
+            if (currentTime - lastClickTime < clickCooldown) {
+                return;
+            }
+            
+            // Проверка на нереальное количество кликов в секунду
+            recentClicks.push(currentTime);
+            if (recentClicks.length > maxCPS) {
+                recentClicks.shift();
+                return;
+            }
+            
+            lastClickTime = currentTime;
+            
+            // Начисление монет
+            coins += power;
+            totalClicks++;
+            clicksInLastSecond++;
+            
+            // Обновление рекорда
+            if (coins > highScore) {
+                highScore = coins;
+                localStorage.setItem('newyearCleanHighScore', highScore);
+            }
+            
+            // Обновление UI
+            updateUI();
+            updateBuyButton();
+            
+            // Создание эффекта клика
+            if (event) {
+                createClickEffect(event);
+            }
+            
+            // Анимация кнопки
+            animateButton();
+            
+            // Сохранение состояния
+            saveGameState();
+        }
+        
+        // Покупка улучшения
+        function handleBuy() {
+            if (coins >= upgradeCost) {
+                coins -= upgradeCost;
+                power += 1;
+                upgradeCost += 50;
+                
+                updateUI();
+                updateBuyButton();
+                
+                // Эффект покупки
+                const originalHTML = buyButton.innerHTML;
+                buyButton.innerHTML = '<i class="fas fa-check"></i> УСПЕХ!';
+                buyButton.style.background = 'linear-gradient(145deg, #00cc66, #00994d)';
+                
+                setTimeout(() => {
+                    buyButton.innerHTML = originalHTML;
+                    buyButton.style.background = 'linear-gradient(145deg, #ff3366 0%, #ff0066 100%)';
+                    updateBuyButton();
+                }, 800);
+                
+                // Анимация улучшения
+                powerElement.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    powerElement.style.transform = 'scale(1)';
+                }, 300);
+                
+                saveGameState();
+            }
+        }
+        
+        // Создание эффекта клика
+        function createClickEffect(event) {
+            const effect = document.createElement('div');
+            effect.className = 'click-effect';
+            
+            let x, y;
+            if (event.type.includes('touch')) {
+                x = event.touches[0].clientX;
+                y = event.touches[0].clientY;
+            } else {
+                x = event.clientX;
+                y = event.clientY;
+            }
+            
+            effect.style.left = `${x - 40}px`;
+            effect.style.top = `${y - 40}px`;
+            document.body.appendChild(effect);
+            
+            setTimeout(() => effect.remove(), 500);
+        }
+        
+        // Анимация кнопки
+        function animateButton() {
+            tapButton.style.transform = 'scale(0.92)';
+            
+            setTimeout(() => {
+                tapButton.style.transform = '';
+            }, 150);
+        }
+        
+        // Обновление UI
+        function updateUI() {
+            coinsElement.textContent = formatNumber(coins);
+            powerElement.textContent = power;
+            highScoreElement.textContent = formatNumber(highScore);
+            upgradeCostElement.textContent = formatNumber(upgradeCost);
+            coinsPerClickElement.textContent = `+${power} подар${getEnding(power)} за клик`;
+            totalClicksElement.textContent = formatNumber(totalClicks);
+            clicksPerSecondElement.textContent = clicksPerSecond;
+            
+            // Анимация обновления счёта
+            coinsElement.style.transform = 'scale(1.1)';
+            setTimeout(() => coinsElement.style.transform = 'scale(1)', 150);
+        }
+        
+        // Форматирование чисел
+        function formatNumber(num) {
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+            return num.toString();
+        }
+        
+        // Получение окончания слова
+        function getEnding(number) {
+            if (number % 10 === 1 && number % 100 !== 11) return 'ок';
+            if (number % 10 >= 2 && number % 10 <= 4 && (number % 100 < 10 || number % 100 >= 20)) return 'ка';
+            return 'ков';
+        }
+        
+        // Обновление кнопки покупки
+        function updateBuyButton() {
+            if (coins >= upgradeCost) {
+                buyButton.disabled = false;
+                buyButton.style.opacity = '1';
+                buyButton.style.cursor = 'pointer';
+            } else {
+                buyButton.disabled = true;
+                buyButton.style.opacity = '0.6';
+                buyButton.style.cursor = 'not-allowed';
+            }
+        }
+        
+        // Игровой цикл
+        function startGameLoop() {
+            setInterval(() => {
+                clicksPerSecond = clicksInLastSecond;
+                clicksInLastSecond = 0;
+                clicksPerSecondElement.textContent = clicksPerSecond;
+            }, 1000);
+        }
+        
+        // Сохранение состояния
+        function saveGameState() {
+            const gameState = {
+                coins: coins,
+                power: power,
+                upgradeCost: upgradeCost,
+                totalClicks: totalClicks,
+                highScore: highScore,
+                lastSave: Date.now()
+            };
+            localStorage.setItem('newyearCleanGame', JSON.stringify(gameState));
+        }
+        
+        // Загрузка состояния
+        function loadGameState() {
+            const savedState = JSON.parse(localStorage.getItem('newyearCleanGame') || '{}');
+            if (savedState.coins) coins = savedState.coins;
+            if (savedState.power) power = savedState.power;
+            if (savedState.upgradeCost) upgradeCost = savedState.upgradeCost;
+            if (savedState.totalClicks) totalClicks = savedState.totalClicks;
+            if (savedState.highScore) highScore = savedState.highScore;
+        }
+        
+        // Назначение обработчиков событий
+        tapButton.addEventListener('click', handleTap);
+        buyButton.addEventListener('click', handleBuy);
+        
+        // Нажатие пробела
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.key === ' ') {
+                e.preventDefault();
+                handleTap();
+            }
+        });
+        
+        // Touch события для мобильных
+        tapButton.addEventListener('touchstart', (e) => {
+            handleTap(e);
+        }, { passive: false });
+        
+        // Запуск игры при загрузке
+        window.addEventListener('load', init);
+        
+        // Сохранение при закрытии
+        window.addEventListener('beforeunload', saveGameState);
+        
+        // CSS для мобильных/десктопа
+        const mobileCSS = document.createElement('style');
+        mobileCSS.textContent = `
+            @media (max-width: 480px) {
+                .mobile-only { display: inline; }
+                .desktop-only { display: none; }
+                h1::before, h1::after { display: none; }
+            }
+            @media (min-width: 481px) {
+                .mobile-only { display: none; }
+                .desktop-only { display: block; }
+            }
+        `;
+        document.head.appendChild(mobileCSS);
+    </script>
+</body>
+              </html>
